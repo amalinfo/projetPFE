@@ -16,6 +16,10 @@ public class CapteurController {
     public ResponseEntity<?> findAllCapteur() {
         return capteurService.findAllCapteur();
     }
+    @GetMapping("/getByOwnerId/{id}")
+    public ResponseEntity<?> getByOwnerId(@PathVariable("id") Long id ){
+        return  this.capteurService.findAllByOwnerId(id);
+    }
 
     @PostMapping("/save")
     public ResponseEntity<?> save(@RequestBody CapteurDto capteur) {

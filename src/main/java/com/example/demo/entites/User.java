@@ -41,8 +41,6 @@ public class User implements UserDetails {
    // private String  numCin;
 
     @Column(name = "telephone", nullable = false)
-    @Pattern(regexp="^\\+216[2-9]\\d{7}$", message="Invalid phone number format")
-    @Size(min=12, max=12, message="Phone number must be exactly 13 digits")
     private String numTel;
     @Column(name = "adress", nullable = false)
     private String adress;

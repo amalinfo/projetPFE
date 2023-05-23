@@ -16,4 +16,5 @@ public interface CapteurService {
     //ResponseEntity<?> Email(Capteur capteur);
     ResponseEntity<?>getByChamp(Long id);
 
+    ResponseEntity<?> findAllByOwnerId(Long id);
 }

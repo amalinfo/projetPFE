@@ -72,7 +72,7 @@ public class ApplicationConfig {
     }
     @Bean
     public MqttClient mqttClient() throws MqttException {
-        MqttClient mqttClient=new MqttClient("tcp://broker.hivemq.com:1883",MqttClient.generateClientId());
+        MqttClient mqttClient=new MqttClient("tcp://broker.emqx.io:1883",MqttClient.generateClientId());
         mqttClient.connect();
         return mqttClient;
     }
