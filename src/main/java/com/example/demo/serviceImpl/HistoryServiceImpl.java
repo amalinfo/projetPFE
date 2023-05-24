@@ -1,6 +1,7 @@
 package com.example.demo.serviceImpl;
 
 import com.example.demo.dto.HistoryDto;
+import com.example.demo.entites.Capteur;
 import com.example.demo.entites.History;
 import com.example.demo.repositories.CapteurRepository;
 import com.example.demo.repositories.HistoryRepository;
@@ -8,6 +9,7 @@ import com.example.demo.services.HistoryService;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Table;
 import com.lowagie.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 
@@ -62,21 +64,40 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public ResponseEntity<?> generatedpdf() throws DocumentException {
-        ByteArrayOutputStream output=new ByteArrayOutputStream();
-        Document doc =new Document();
-        PdfWriter.getInstance(doc,output);
-        doc.open();
-        Paragraph par=new Paragraph();
-        List<History> historyList=histpryRepository.findAll();
-        historyList.forEach(e->{
-            par.add(e.getCapteur().getNom());
-            par.add(e.getDate());
-        });
-        doc.add(par);
-        doc.close();
-        HttpHeaders http=new HttpHeaders();
-        http.setContentType(MediaType.APPLICATION_PDF);
-        return new ResponseEntity<>(output.toByteArray(),http, HttpStatus.OK);
-    }
+    public ResponseEntity<?> generatedpdf(Long id) throws DocumentException {
+        Optional<Capteur> capteur = capteurRepository.findById(id);
+        if (capteur.isPresent()) {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, output);
+            doc.open();
+            Paragraph par = new Paragraph();
+            List<History> historyList = histpryRepository.findAllByCapteur(capteur.get());
+            if (historyList.size()!=0){
+
+            historyList.forEach(e -> {
+                par.add("nom capteur : "+ e.getCapteur().getNom()+ " ");
+                par.add("date de notification  : "+e.getDate().toString() + " ");
+                par.add("etat : "+e.getCapteur().getEtat()+ " " );
+                par.add("user : "+e.getCapteur().getChamp().getUserEmail()+ " " );
+                par.add("\n");
+            });
+            doc.add(par);
+            doc.close();
+            HttpHeaders http = new HttpHeaders();
+            http.setContentType(MediaType.APPLICATION_PDF);
+            return new ResponseEntity<>(output.toByteArray(), http, HttpStatus.OK);
+        }
+            else {
+                par.add(capteur.get().getNom() + " have no history");
+                doc.add(par);
+                doc.close();
+                HttpHeaders http = new HttpHeaders();
+                http.setContentType(MediaType.APPLICATION_PDF);
+                return new ResponseEntity<>(output.toByteArray(), http, HttpStatus.OK);
+            }
+        }else {
+            return ResponseEntity.ok("no capteur match this call");
+        }
+        }
 }

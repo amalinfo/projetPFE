@@ -11,8 +11,9 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
+@Getter
+@Setter
 @JsonDeserialize(as =Champ.class)
 public class Champ {
     @Id
@@ -33,4 +34,12 @@ public class Champ {
     @JsonIgnore
     @OneToMany(mappedBy = "champ",  fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Capteur> capteur;
+
+    public String getUserEmail(){
+        return this.user.getEmail();
+
+    }
+    public String getUserPhone(){
+        return this.user.getNumTel();
+    }
 }

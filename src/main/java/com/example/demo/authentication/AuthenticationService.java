@@ -107,11 +107,9 @@ public class AuthenticationService {
             String pwt=generate();
             BCryptPasswordEncoder encoder= new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(pwt));
-
           repository.save(user);
             emailService.sendMail(user.getEmail(),"new password", pwt);
-            return ResponseEntity.ok("OK");
-
+            return ResponseEntity.ok(request);
         }
         return ResponseEntity.ok("User not found");
     }

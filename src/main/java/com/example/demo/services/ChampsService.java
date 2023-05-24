@@ -12,4 +12,6 @@ public interface ChampsService {
   ResponseEntity<?> modifier(Champ champ);
 
     ResponseEntity<?> getByUser(Long id);
+
+    ResponseEntity<?> getByUserEmail(String email);
 }

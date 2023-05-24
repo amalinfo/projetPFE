@@ -11,5 +11,5 @@ public interface HistoryService {
     ResponseEntity<?> delete(Long id) ;
     ResponseEntity<?> findById(Long id);
     ResponseEntity<?> getAll();
-    ResponseEntity<?> generatedpdf() throws DocumentException;
+    ResponseEntity<?> generatedpdf(Long id) throws DocumentException;
 }

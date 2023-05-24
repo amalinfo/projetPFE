@@ -30,9 +30,9 @@ public class HistoryController {
     public ResponseEntity<?> getAll() {
         return service.getAll();
     }
-    @GetMapping("/pdf")
-    public ResponseEntity<?> generatepdf(Long capteurId) throws DocumentException {
-    return service.generatedpdf();
+    @GetMapping("/pdf/{idC}")
+    public ResponseEntity<?> generatepdf(@PathVariable("idC") Long capteurId) throws DocumentException {
+    return service.generatedpdf(capteurId);
     }
 
 }

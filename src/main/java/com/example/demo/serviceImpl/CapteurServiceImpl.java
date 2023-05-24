@@ -91,11 +91,20 @@ public class CapteurServiceImpl implements CapteurService {
 
     @Override
     public ResponseEntity<?> findAllByOwnerId(Long id) {
-       /* Optional<User> owner  = userRepository.findById(id);
+        Optional<User> owner  = userRepository.findById(id);
         if(owner.isPresent()){
-            return ResponseEntity.ok( capteurRepository.findAllByUser(owner.get()));
-        }*/
-        return ResponseEntity.ok("ok");
+            return ResponseEntity.ok( capteurRepository.findAllByChampUser(owner.get()));
+        }
+        return ResponseEntity.ok("not found");
+    }
+
+    @Override
+    public ResponseEntity<?> findAllByOwnerEmail(String email) {
+        Optional<User> owner  = userRepository.findByEmail(email);
+        if(owner.isPresent()){
+            return ResponseEntity.ok( capteurRepository.findAllByChampUser(owner.get()));
+        }
+        return ResponseEntity.ok("not found");
     }
 
 

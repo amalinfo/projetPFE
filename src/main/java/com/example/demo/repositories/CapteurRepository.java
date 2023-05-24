@@ -13,4 +13,5 @@ public interface CapteurRepository extends JpaRepository<Capteur,Long> {
     /*Capteur findByName(String name);*/
     List<Capteur> findAllByChamp(Champ champ);
 
+    List<Capteur> findAllByChampUser(User user);
 }

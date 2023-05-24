@@ -42,4 +42,9 @@ public class ChampController {
         return champsService.getByUser(id);
     }
 
+    @GetMapping("/getByEmail/{email}")
+    public ResponseEntity<?> getByUserEmail(@PathVariable("email")String email ){
+        return champsService.getByUserEmail(email);
+    }
+
 }

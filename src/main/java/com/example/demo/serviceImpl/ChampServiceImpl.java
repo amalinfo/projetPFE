@@ -76,4 +76,13 @@ public class ChampServiceImpl implements ChampsService {
     }
     }
 
+    @Override
+    public ResponseEntity<?> getByUserEmail(String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (user.isPresent()){
+            return ResponseEntity.ok(champRepository.findAllByUser(user.get()));
+        }
+        return ResponseEntity.ok("no user matching this call");
+    }
+
 }

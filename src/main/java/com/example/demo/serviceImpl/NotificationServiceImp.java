@@ -47,7 +47,7 @@ public class NotificationServiceImp implements NotificationService {
                         ).build()
         );
         emailService.sendMailwithtml(request.getTo(), request.getSubject() , request.getContent());
-        service.sendSMS("55800479","testing both notifications");
+
         return ResponseEntity.ok(n);
     }
     @Override
